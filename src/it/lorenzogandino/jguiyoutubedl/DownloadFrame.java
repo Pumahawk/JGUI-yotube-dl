@@ -1,33 +1,34 @@
 package it.lorenzogandino.jguiyoutubedl;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.plaf.FileChooserUI;
 
 public class DownloadFrame extends JFrame implements StatusManager {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	final AppController controller;
-	final JTextField urlText;
-	final JLabel statusDownload;
-	final JButton download;
-	final JButton selectFolder;
-	final JFileChooser folderDestination;
+	protected final AppController controller;
+	protected final JTextField urlText;
+	protected final JLabel statusDownload;
+	protected final JButton download;
+	protected final JButton selectFolder;
+	protected final JFileChooser folderDestination;
+	protected final JCheckBox musicOpt;
 	
 	public DownloadFrame(AppController controller) {
 		this.controller = controller;
 		this.folderDestination = new JFileChooser();
+		this.musicOpt = new JCheckBox("Audio");
 		this.folderDestination.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		this.setTitle("JGUI");
@@ -54,6 +55,7 @@ public class DownloadFrame extends JFrame implements StatusManager {
 		
 		url.add(urlLabel);
 		url.add(urlText);
+		url.add(musicOpt);
 		button.add(download);
 		button.add(selectFolder);
 		
@@ -82,6 +84,11 @@ public class DownloadFrame extends JFrame implements StatusManager {
 		this.urlText.setEditable(status);
 		this.download.setEnabled(status);
 		this.selectFolder.setEnabled(status);
+		this.musicOpt.setEnabled(status);
+	}
+	
+	public boolean isMusic() {
+		return this.musicOpt.isSelected();
 	}
 
 	@Override

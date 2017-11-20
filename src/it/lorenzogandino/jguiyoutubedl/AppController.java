@@ -6,6 +6,8 @@ import java.lang.ProcessBuilder.Redirect;
 
 import javax.swing.JOptionPane;
 
+import it.lorenzogandino.jguiyoutubedl.YoutubeDL.Options;
+
 public class AppController {
 
 	final DownloadFrame downloadFrame;
@@ -22,11 +24,15 @@ public class AppController {
 		String url = this.downloadFrame.getUrl();
 		File dest = this.downloadFrame.getDestinationFolder();
 		if(dest != null) {
-			ProcessBuilder youtubedl = new ProcessBuilder("youtube-dl", "--no-playlist", "-o", dest.getAbsolutePath() + "/%(title)s-%(id)s.%(ext)s", url);
+			Options opt = new Options();
+			opt.setPlaylist(false);
+			opt.setVideo(!downloadFrame.isMusic());
+			opt.setOutFormat(dest.getAbsolutePath() + "/%(title)s-%(id)s.%(ext)s");
+			YoutubeDL youtubedl = new YoutubeDL();
 			youtubedl.redirectInput(Redirect.INHERIT);
 			youtubedl.redirectError(Redirect.INHERIT);
 			try {
-				Process yp = youtubedl.start();
+				Process yp = youtubedl.startYDL(opt, url);
 				DownloadManager dm = new DownloadManager(this.downloadFrame, yp.getInputStream());
 				dm.start();
 			} catch (IOException e) {
