@@ -50,6 +50,7 @@ public class DefaultAppController implements AppController, DownloadListControll
 				DownloadManager dm = new DownloadManager(this.downloadList, this.downloadFrame, yp.getInputStream());
 				this.downloadList.addDownloadManager(dm, opt);
 				dm.start();
+				this.downloadListFrame.setVisible(true);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

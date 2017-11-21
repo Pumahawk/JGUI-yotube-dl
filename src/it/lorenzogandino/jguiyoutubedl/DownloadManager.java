@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class DownloadManager extends Thread {
-	protected final StatusManager sm;
+	protected StatusManager sm;
 	protected final InputStream inStatus;
 	protected final DownloadsList listD;
 	public DownloadManager(DownloadsList downloadList, StatusManager sm, InputStream inStatus) {
@@ -35,5 +35,9 @@ public class DownloadManager extends Thread {
 	protected void removeByDownloadList() {
 		if(listD != null)
 			listD.removeDownloadManager(this);
+	}
+	
+	protected void setStatusManager(StatusManager sm) {
+		this.sm = sm;
 	}
 }
