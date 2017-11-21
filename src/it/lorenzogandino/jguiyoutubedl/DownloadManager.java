@@ -4,12 +4,18 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class DownloadManager extends Thread {
-	final StatusManager sm;
-	final InputStream inStatus;
-	public DownloadManager(StatusManager sm, InputStream inStatus) {
+	protected final StatusManager sm;
+	protected final InputStream inStatus;
+	protected final DownloadsList listD;
+	public DownloadManager(DownloadsList downloadList, StatusManager sm, InputStream inStatus) {
 		this.sm = sm;
 		this.inStatus = inStatus;
+		this.listD = downloadList;
 		this.setDaemon(true);
+	}
+	
+	public DownloadManager(StatusManager sm, InputStream inStatus) {
+		this(null, sm, inStatus);
 	}
 	
 	@Override
@@ -23,5 +29,11 @@ public class DownloadManager extends Thread {
 		}
 		sm.setStatus(new DownloadInfo(s, true));
 		sc.close();
+		removeByDownloadList();
+	}
+	
+	protected void removeByDownloadList() {
+		if(listD != null)
+			listD.removeDownloadManager(this);
 	}
 }

@@ -104,7 +104,7 @@ public class DownloadFrame extends JFrame implements StatusManager {
 	@Override
 	public void setStatus(StatusInfo info) {
 		this.statusDownload.setText(info.getMessage());
-		this.enableData(info.complete());
+		//this.enableData(info.complete());
 		this.validate();
 	}
 }
