@@ -20,12 +20,12 @@ public class AppController {
 		this.downloadFrame.setVisible(true);
 	}
 	
-	public void downloadVideoAction() {
+	public void downloadAction() {
 		String url = this.downloadFrame.getUrl();
 		File dest = this.downloadFrame.getDestinationFolder();
 		if(dest != null) {
 			Options opt = new Options();
-			opt.setPlaylist(false);
+			opt.setPlaylist(downloadFrame.isPlaylist());
 			opt.setVideo(!downloadFrame.isMusic());
 			opt.setOutFormat(dest.getAbsolutePath() + "/%(title)s-%(id)s.%(ext)s");
 			YoutubeDL youtubedl = new YoutubeDL();

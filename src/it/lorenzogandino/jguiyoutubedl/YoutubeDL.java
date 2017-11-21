@@ -10,7 +10,14 @@ public class YoutubeDL {
 		protected boolean video = true;
 		protected boolean playlist = true;
 		protected String outFormat = null;
+		protected boolean ignore = true;
 		
+		public boolean isIgnore() {
+			return ignore;
+		}
+		public void setIgnore(boolean ignore) {
+			this.ignore = ignore;
+		}
 		public void setVideo(boolean video) {
 			this.video = video;
 		}
@@ -34,6 +41,8 @@ public class YoutubeDL {
 			LinkedList<String> cm = new LinkedList<>();
 			if(!video)
 				cm.add("-x");
+			if(ignore)
+				cm.add("-i");
 			if(!playlist)
 				cm.add("--no-playlist");
 			if(outFormat != null) {

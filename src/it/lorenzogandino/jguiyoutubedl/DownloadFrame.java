@@ -24,11 +24,13 @@ public class DownloadFrame extends JFrame implements StatusManager {
 	protected final JButton selectFolder;
 	protected final JFileChooser folderDestination;
 	protected final JCheckBox musicOpt;
+	protected final JCheckBox playlistOpt;
 	
 	public DownloadFrame(AppController controller) {
 		this.controller = controller;
 		this.folderDestination = new JFileChooser();
 		this.musicOpt = new JCheckBox("Audio");
+		this.playlistOpt = new JCheckBox("Playlist");
 		this.folderDestination.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		this.setTitle("JGUI");
@@ -38,7 +40,7 @@ public class DownloadFrame extends JFrame implements StatusManager {
 		this.urlText = new JTextField(20);
 		
 		download = new JButton("Download");
-		download.addActionListener(e -> controller.downloadVideoAction());
+		download.addActionListener(e -> controller.downloadAction());
 		
 		selectFolder = new JButton("Destinazione");
 		selectFolder.addActionListener(e -> folderDestination.showOpenDialog(this));
@@ -51,15 +53,18 @@ public class DownloadFrame extends JFrame implements StatusManager {
 		JPanel center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
 		JPanel url = new JPanel();
+		JPanel opt = new JPanel();
 		JPanel button = new JPanel();
 		
 		url.add(urlLabel);
 		url.add(urlText);
-		url.add(musicOpt);
+		opt.add(musicOpt);
+		opt.add(playlistOpt);
 		button.add(download);
 		button.add(selectFolder);
 		
 		center.add(url);
+		center.add(opt);
 		center.add(button);
 		
 		this.setLayout(new BorderLayout());
@@ -85,10 +90,15 @@ public class DownloadFrame extends JFrame implements StatusManager {
 		this.download.setEnabled(status);
 		this.selectFolder.setEnabled(status);
 		this.musicOpt.setEnabled(status);
+		this.playlistOpt.setEnabled(status);
 	}
 	
 	public boolean isMusic() {
 		return this.musicOpt.isSelected();
+	}
+	
+	public boolean isPlaylist() {
+		return this.playlistOpt.isEnabled();
 	}
 
 	@Override
