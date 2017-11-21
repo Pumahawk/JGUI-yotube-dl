@@ -24,13 +24,13 @@ public class DownloadListFrame extends JFrame implements Observer{
 	public DownloadListFrame(DownloadListController controller) {
 		this.controller = controller;
 		this.listViewPanel = Collections.synchronizedMap(new HashMap<>());
-		this.setSize(600, 80);
+		this.setSize(500, 100);
 		
 		this.content = new JPanel();
-		this.content.setLayout(new BoxLayout(this.content, BoxLayout.Y_AXIS));
+		BoxLayout layout = new BoxLayout(this.content, BoxLayout.Y_AXIS);
+		this.content.setLayout(layout);
 		
 		JScrollPane sp = new JScrollPane(content);
-		
 		add(sp);
 		
 	}
@@ -67,8 +67,7 @@ public class DownloadListFrame extends JFrame implements Observer{
 					mancanti.add(i);
 			}
 			for(DownloadManager i : mancanti) {
-				DownloadViewPanel p = new DownloadViewPanel();
-				i.setStatusManager(p);
+				DownloadViewPanel p = new DownloadViewPanel(i);
 				this.content.add(p);
 				this.listViewPanel.put(i, p);
 			}

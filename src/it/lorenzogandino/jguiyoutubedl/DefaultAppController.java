@@ -47,7 +47,7 @@ public class DefaultAppController implements AppController, DownloadListControll
 			youtubedl.redirectError(Redirect.INHERIT);
 			try {
 				Process yp = youtubedl.startYDL(opt, url);
-				DownloadManager dm = new DownloadManager(this.downloadList, this.downloadFrame, yp.getInputStream());
+				DownloadManager dm = new DownloadManager(this.downloadList, this.downloadFrame, yp);
 				this.downloadList.addDownloadManager(dm, opt);
 				dm.start();
 				this.downloadListFrame.setVisible(true);
